@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>121 冬训节 专属助理</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "PingFang SC", "Helvetica Neue", sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      color: #333;
+    }
+    .container {
+      padding: 24px 16px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-top: 24px;
+      color: #222;
+    }
+    p.desc {
+      font-size: 16px;
+      margin: 12px 0;
+      color: #555;
+    }
+    .qr-box {
+      margin: 24px auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 12px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+    .qr-box img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 8px;
+    }
+    .assistant-name {
+      font-size: 18px;
+      margin-top: 8px;
+      font-weight: bold;
+      color: #111;
+    }
+    .tip {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>121 冬训节</h1>
+    <p class="desc">不封车 · 不停训 · 不止步</p>
+    <p class="desc">已为你分配专属助理</p>
+
+    <div class="qr-box">
+      <img id="qrImg" src="" alt="专属助理二维码">
+    </div>
+
+    <p class="assistant-name" id="assistantName"></p>
+    <p class="tip">长按二维码识别，添加助理微信</p>
+    <p class="tip">助理会拉你进入活动群并指导参与</p>
+  </div>
+
+  <script>
+    const assistantData = [
+      { name: "助理 A", qr: "https://github.com/Mayang-ux/121-winter-ride/blob/main/IMG_3578.jpg" },
+      { name: "助理 B", qr: "https://github.com/Mayang-ux/121-winter-ride/blob/main/IMG_3580.jpg
+" },
+      { name: "助理 C", qr: "https://github.com/Mayang-ux/121-winter-ride/blob/main/IMG_3580.jpg
+" }
+    ];
+
+    let assigned = localStorage.getItem("assignedAssistant");
+
+    if (!assigned) {
+      let count = parseInt(localStorage.getItem("visitCount") || "0", 10);
+      count += 1;
+      localStorage.setItem("visitCount", count);
+
+      const index = count % assistantData.length;
+      assigned = assistantData[index].name;
+      localStorage.setItem("assignedAssistant", assigned);
+    }
+
+    const assignedIndex = assistantData.findIndex(a => a.name === assigned);
+    const assistant = assistantData[assignedIndex] || assistantData[0];
+
+    document.getElementById("qrImg").src = assistant.qr;
+    document.getElementById("assistantName").textContent = assistant.name;
+  </script>
+</body>
+</html>
